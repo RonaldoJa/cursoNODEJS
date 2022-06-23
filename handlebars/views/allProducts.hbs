@@ -1,0 +1,35 @@
+<h3> Lista de Productos:</h3>
+{{#if productos}}
+    
+    <table style="margin:3rem 0;">
+        <thead style="background-color:aliceblue ;">
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Imagen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each productos}}
+
+                <tr scope="row">
+                    <td>
+                            {{title}} 
+                    </td>
+                    <td>
+                            {{price}}
+                    </td>
+                    <td>
+                        <img src= {{thumbnail}}   alt= {{title}} style="width:3rem;">
+                    </td>
+                    
+                </tr>  
+            
+            {{/each}}
+        </tbody>
+    </table>
+    {{else }}
+    <p style="color: red;">No hay ninguna producto :(</p>
+{{/if}}
+
+<a href="/productos/crear" >Crear Productos</a>

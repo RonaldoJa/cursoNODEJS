@@ -1,0 +1,35 @@
+doctype
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        title PUG Producto
+    body
+    main.container
+        h3(style={margin : '2rem 0'})  Lista de Productos
+        if productos.length 
+            table
+                thead.thead-dark 
+                    tr 
+                    th(scope:'col') Nombre
+                    th(scope:'col') Precio
+                    th(scope:'col') Imagen
+
+                tbody 
+                    
+                    each producto in productos   
+                        tr(scope:'row')
+                        td  #{producto.title}                       
+                        td  #{producto.price }  
+                        td 
+                        
+                         img(src=producto.thumbnail, alt=producto.title, style={width:'3rem'})
+                                
+                    
+        else 
+            p(style={color: 'red'}) No hay ningun producto
+    
+        
+    
+        a(href="/productos/crear") Crear Productos
+
+</html>

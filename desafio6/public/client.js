@@ -46,8 +46,10 @@ function sendMessage() {
     try {
         const username = usernameInput.value
         const message = messageInput.value
+        const date = new Date();
+        const result = date.toLocaleString();
     
-        socket.emit('client:message', { username, message })
+        socket.emit('client:message', { username,result, message })
     } catch(error) {
         console.log(`Hubo un error ${error}`)
     }
@@ -57,8 +59,9 @@ function renderMessages(messagesArray) {
     try {
         const html = messagesArray.map(messageInfo => {
             return(`<div>
-                <strong>${messageInfo.username}</strong>:
-                <em>${messageInfo.message}</em> </div>`)
+                <strong style="color:blue">${messageInfo.username}</strong>:
+                <em style="color: #804000">[${messageInfo.result}]</em>
+                <em style="color:green">${messageInfo.message}</em> </div>`)
         }).join(" ");
 
         messagesPool.innerHTML = html

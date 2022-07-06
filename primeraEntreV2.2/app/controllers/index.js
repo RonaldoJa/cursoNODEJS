@@ -15,20 +15,22 @@ const timestamp = date.toLocaleDateString();
 // Obtener la lista de productos
 
 export const getProductos = async(req, res) => {
-	res.json(productos)
+	const allProducts = await leer('productos');
+	res.json(allProducts)
 }
 
 // Obtener la lista de productos por parmetro
 
 export const getProductoId = async(req, res) => {
+	const allProducts = await leer('productos');
 	const id = Number(req.params.id)
 	if (id) {
-		const productoParam = productos.filter(producto => {
+		const productoParam = allProducts.filter(producto => {
 			return producto.id === id
 		})
 		res.json(productoParam)
 	} else {
-		res.json(productos)
+		res.json(allProducts)
 	}
 }
 
@@ -53,12 +55,13 @@ export const postProducto = async(req, res) => {
 // Modificar un producto
 
 export const putProducto = async(req, res) => {
+	const allProducts = await leer('productos');
 	const id = Number(req.params.id)
 
 	if (!isNaN(id)) {
 		const { title, price, thunbail, code, stock } = req.body
 
-		productos.forEach(producto => {
+		allProducts.forEach(producto => {
 			if (producto.id === id) {
 				producto.title = title
 				producto.price = price
@@ -78,15 +81,15 @@ export const putProducto = async(req, res) => {
 // Eliminar un producto
 
 export const deleteProducto = async(req, res) => {
+	const allProducts = await leer('productos');
 	const id = Number(req.params.id)
 
 	if (!isNaN(id)) {
-		const nuevoArray = productos.filter(productos => productos.id != id)
-		productos = []
-		productos.push(nuevoArray)
+		const nuevoArray = allProducts.filter(producto => producto.id != id)
+		console.log(nuevoArray)
+		await escribir('productos', nuevoArray);
 		res.status(201).send('Producto eliminado con exito')
 	} else {
 		res.status(404).send('No se pudo eliminar el producto')
 	}
-	await escribir('productos', productos);
 }

@@ -6,52 +6,74 @@ const date = new Date();
 const timestamp = date.toLocaleDateString();
 
 
-
-
-
 export const getCarrito = async(req, res) => {
-	const producto = await leer('productos');
-
-	res.json(carrito)
+	const allCart = await leer('carrito');
+	const id = Number(req.params.id)
+	if (id) {
+		const carritoParam = allCart.filter(carrito => {
+			return carrito.id === id
+		})
+		res.json(carritoParam)
+	} else {
+		res.json(allCart)
+	}
 }
 
 export const postCarrito = async(req, res) => {
-	// const producto = await leer('productos');
 	if (carrito.length === 0) {
 		const id = 1
 		carrito.push({ id, timestamp })
-		res.status(201).send('Carrito creado con exito')
+		res.status(201).send(`Carrito creado con exito, id del carrito ${id}`)
 	} else if (carrito.length > 0) {
 		const idSuma = carrito[carrito.length - 1].id
 		const id = idSuma + 1
 		carrito.push({ id, timestamp })
-		res.status(201).send('Carrito creado con exito')
+		res.status(201).send(`Carrito creado con exito, id del carrito ${id}`)
 	}
 	await escribir('carrito', carrito);
 }
 
 export const deleteCarrito = async(req, res) => {
+	const allCart = await leer('carrito');
 	const id = Number(req.params.id)
 
 	if (!isNaN(id)) {
-		const nuevoArray = carrito.filter(carritos => carritos.id != id)
-		carritos = []
-		carritos.push(nuevoArray)
-		res.status(201).send('Producto eliminado con exito')
-		await escribir('carrito', carrito);
+		const nuevoArray = allCart.filter(producto => producto.id != id)
+		console.log(nuevoArray)
+		await escribir('carrito', nuevoArray);
+		res.status(201).send('Carrito eliminado con exito')
 	} else {
-		res.status(404).send('No se pudo eliminar el producto')
+		res.status(404).send('No se pudo eliminar el carrito')
 	}
 }
 
 export const postCarritoProd = async(req, res) => {
 	const allCart = await leer('carrito');
-	const producto = await leer('productos')
+	const producto = await leer('productos');
 	const id = Number(req.params.id)
-
 	const index = allCart.findIndex(element => element.id == id)
-	allCart[index].product.push(producto)
+	const carritoSeleccionado = allCart[index];
+	if(allCart[index] == undefined) {
+		res.status(401).send('Carrito no encontrado')
+	} else {
+		carritoSeleccionado.Producto = producto;
+		await escribir('carrito', allCart);
+		res.send('carrito encontrado').status(200)
+	}
+}
 
-	await escribir('carrito', allCart);
-
+export const deleteProductForId = async (req, res) => {
+	const allCart = await leer('carrito');
+	const id = Number(req.params.id)
+	const id_prod = Number(req.params.id_prod)
+	const index = allCart.findIndex(element => element.id == id)
+	const carritoSeleccionado = allCart[index];
+	if(allCart[index] == undefined) {
+		res.status(401).send('Carrito no encontrado')
+	} else {
+		const nuevoArray = carritoSeleccionado.Producto.filter(producto => producto.id != id_prod)
+		carritoSeleccionado.Producto = nuevoArray;
+		await escribir('carrito', allCart);
+		res.send(`Producto eliminado del carrito exitosamente`).status(200);
+	}
 }

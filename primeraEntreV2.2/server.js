@@ -21,13 +21,13 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 import mainRoutes from './app/routes/main-routes.js'
-import index from './app/routes/index.js'
+import productos from './app/routes/productos.js'
 import carrito from './app/routes/carrito.js'
 
 
 //ROUTES
 app.use('/', mainRoutes);
-app.use('/api/productos', index);
+app.use('/api/productos', productos);
 app.use('/api/carrito', carrito);
 
 //SERVER

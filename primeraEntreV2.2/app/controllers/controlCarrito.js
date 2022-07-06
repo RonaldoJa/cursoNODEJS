@@ -5,7 +5,7 @@ let carrito = []
 const date = new Date();
 const timestamp = date.toLocaleDateString();
 
-
+//Listar todos los productos guardados en el carrito segun su id
 export const getCarrito = async(req, res) => {
 	const allCart = await leer('carrito');
 	const id = Number(req.params.id)
@@ -19,6 +19,7 @@ export const getCarrito = async(req, res) => {
 	}
 }
 
+//Crea carrito 
 export const postCarrito = async(req, res) => {
 	if (carrito.length === 0) {
 		const id = 1
@@ -33,6 +34,7 @@ export const postCarrito = async(req, res) => {
 	await escribir('carrito', carrito);
 }
 
+//Elimina carrito
 export const deleteCarrito = async(req, res) => {
 	const allCart = await leer('carrito');
 	const id = Number(req.params.id)
@@ -47,6 +49,7 @@ export const deleteCarrito = async(req, res) => {
 	}
 }
 
+//Agrega productos al carrito segun su id
 export const postCarritoProd = async(req, res) => {
 	const allCart = await leer('carrito');
 	const producto = await leer('productos');
@@ -62,6 +65,7 @@ export const postCarritoProd = async(req, res) => {
 	}
 }
 
+//Elimina productos segun su id y la id del carrito
 export const deleteProductForId = async (req, res) => {
 	const allCart = await leer('carrito');
 	const id = Number(req.params.id)

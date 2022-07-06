@@ -3,7 +3,7 @@ import { auth } from '../controllers/autentifiacion.js'
 
 const router = Router()
 
-import { getProductos, getProductoId, postProducto, putProducto, deleteProducto } from '../controllers/index.js'
+import { getProductos, getProductoId, postProducto, putProducto, deleteProducto } from '../controllers/controlProducto.js'
 
 
 router.get('/', getProductos)

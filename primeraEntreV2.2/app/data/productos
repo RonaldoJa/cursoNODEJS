@@ -1,0 +1,29 @@
+[
+	{
+		"title": "jose",
+		"price": "1",
+		"thunbail": "dsds",
+		"id": 1,
+		"code": "2",
+		"stock": "12",
+		"timestamp": "5/7/2022"
+	},
+	{
+		"title": "jose",
+		"price": "1",
+		"thunbail": "dsds",
+		"id": 2,
+		"code": "2",
+		"stock": "12",
+		"timestamp": "5/7/2022"
+	},
+	{
+		"title": "jose",
+		"price": "1",
+		"thunbail": "dsds",
+		"id": 3,
+		"code": "2",
+		"stock": "12",
+		"timestamp": "5/7/2022"
+	}
+]

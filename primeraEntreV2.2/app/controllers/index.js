@@ -1,3 +1,5 @@
+import { leer, escribir } from '../data/data.js'
+
 // Array de productos
 
 let productos = []
@@ -12,13 +14,13 @@ const timestamp = date.toLocaleDateString();
 
 // Obtener la lista de productos
 
-export const getProductos = (req, res) => {
+export const getProductos = async(req, res) => {
 	res.json(productos)
 }
 
 // Obtener la lista de productos por parmetro
 
-export const getProductoId = (req, res) => {
+export const getProductoId = async(req, res) => {
 	const id = Number(req.params.id)
 	if (id) {
 		const productoParam = productos.filter(producto => {
@@ -32,7 +34,7 @@ export const getProductoId = (req, res) => {
 
 // Agregar un porducto por medio de un formulario
 
-export const postProducto = (req, res) => {
+export const postProducto = async(req, res) => {
 	if (productos.length === 0) {
 		const id = 1
 		const { title, price, thunbail, code, stock} = req.body
@@ -45,11 +47,12 @@ export const postProducto = (req, res) => {
 		productos.push({ title, price, thunbail, id, code, stock, timestamp })
 		res.status(201).send('Producto cargado con exito')
 	}
+	await escribir('productos', productos);
 }
 
 // Modificar un producto
 
-export const putProducto = (req, res) => {
+export const putProducto = async(req, res) => {
 	const id = Number(req.params.id)
 
 	if (!isNaN(id)) {
@@ -69,11 +72,12 @@ export const putProducto = (req, res) => {
 	} else {
 		res.status(404).send('El producto no existe')
 	}
+	await escribir('productos', productos);
 }
 
 // Eliminar un producto
 
-export const deleteProducto = (req, res) => {
+export const deleteProducto = async(req, res) => {
 	const id = Number(req.params.id)
 
 	if (!isNaN(id)) {
@@ -84,4 +88,5 @@ export const deleteProducto = (req, res) => {
 	} else {
 		res.status(404).send('No se pudo eliminar el producto')
 	}
+	await escribir('productos', productos);
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Holaaa</h1>
+    <h3 style="margin:2rem 0;"> Ingrese un Producto:</h3>
+
+    <form id="formProducts">
+        
+        Título: <input type="text" id="titulo" name="title" placeholder="ingrese un producto" required>
+    
+        Precio: <input type="number" id="precio" name="price" placeholder="ingrese el precio" required>
+    
+        Url: <input type="text" id="imagen" name="thumbnail" placeholder="ingrese URL de la imagen" required>
+        <input type="submit" value="Ingresar producto" style="margin-top: 2rem;">
+    </form>
+    
+    <div class="container">
+        <h3> Lista de Productos:</h3>
+        <table style="margin:3rem 0;">
+            <thead style="background-color:aliceblue ;">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Imagen</th>
+                </tr>
+            </thead>
+            <tbody id="productosTabla" >
+                
+            </tbody> 
+        </table>
+    </div>
+
+    <hr>
+    <div id="messagesPool"></div>
+    <form id="formMessage">
+        <input id="usernameInput" type="text" placeholder="Correo electronico">
+        <input id="messageInput" type="text" placeholder="Mensaje">
+        <input type="submit" value="Enviar">
+    </form>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./client.js"></script>
+</body>
+</html>
